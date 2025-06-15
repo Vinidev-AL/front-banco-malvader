@@ -1,1 +1,168 @@
-/* You can add global styles to this file, and also import other style files */
+/* --- 1. Importação da Fonte e Definição das Animações --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- 2. Estilos Globais e do Corpo da Página --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+  font-family: 'Inter', sans-serif;
+  background: var(--cor-primaria); /* Fundo escuro para a página */
+  color: #f0f0f0;
+  /* Garante que o fundo não role junto com o conteúdo em telas pequenas */
+  overflow-x: hidden;
+}
+
+:root {
+  --cor-primaria: #1a1c20;
+}
+
+/* --- 3. Estilização do Formulário (Container) --- */
+form {
+  background-color: #252830; /* Fundo do formulário, um pouco mais claro */
+  padding: 3rem;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 450px;
+  margin: 1rem; /* Adiciona margem para não colar nas bordas em telas pequenas */
+  border: 1px solid #333740;
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.5);
+  
+  /* Layout interno do formulário */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Espaçamento moderno entre os campos */
+}
+
+/* --- 4. Animação de Entrada para os Campos --- */
+/* Aplica a animação em todos os filhos diretos do form */
+form > * {
+  opacity: 0; /* Começa invisível */
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* --- 5. Estilo dos Inputs e Select (classe .estilo-input-padrao) --- */
+.estilo-input-padrao {
+  /* Reset e Aparência */
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid #444955;
+  background-color: #1f2228;
+  
+  /* Dimensões e Fonte */
+  width: 100%;
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 1rem; /* Tamanho de fonte ideal para mobile para evitar zoom automático */
+  color: #f0f0f0;
+  
+  /* Transições suaves para foco e hover */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.estilo-input-padrao::placeholder {
+  color: #777c88;
+}
+
+.estilo-input-padrao:hover {
+  border-color: #5f6677;
+}
+
+.estilo-input-padrao:focus {
+  outline: none;
+  border-color: #00e0c6; /* Cor de destaque neon */
+  box-shadow: 0 0 0 3px rgba(0, 224, 198, 0.2), 
+              0 0 20px rgba(0, 224, 198, 0.1); /* Efeito de brilho (glow) */
+}
+
+/* --- 6. Customização Específica do Select (Dropdown) --- */
+select.estilo-input-padrao {
+  /* SVG para a seta customizada. Codificado para não precisar de arquivo externo. */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23777c88' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+}
+
+select.estilo-input-padrao option {
+  background-color: #252830;
+  color: #f0f0f0;
+}
+
+/* --- 7. Estilo do Botão --- */
+button {
+  /* Aparência */
+  background-color: #00e0c6;
+  color: #1a1c20; /* Texto escuro para contrastar com o botão claro */
+  border: none;
+  
+  /* Dimensões e Fonte */
+  min-width: 150px;
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  
+  /* Interatividade */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 224, 198, 0.2);
+}
+
+button:hover {
+  background-color: #1affdf;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 224, 198, 0.3);
+}
+
+button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(0, 224, 198, 0.2);
+}
+
+
+/* --- 8. Media Queries para Responsividade (Mobile) --- */
+/* Aplica estes estilos em telas com largura máxima de 600px */
+@media (max-width: 600px) {
+
+  body {
+    /* Em vez de centralizar no meio da tela, alinha no topo. */
+    /* Isso é mais natural em mobile, permitindo rolar para baixo. */
+    align-items: flex-start;
+  //  padding-top: 2rem; /* Adiciona um respiro no topo */
+  }
+
+  form {
+    /* Reduz o padding para economizar espaço horizontal */
+    padding: 2rem; 
+    
+    /* Reduz o espaçamento entre os campos */
+    gap: 1.25rem; 
+  }
+
+  button {
+    /* Diminui um pouco a fonte do botão para melhor harmonia */
+    font-size: 1rem;
+  }
+}

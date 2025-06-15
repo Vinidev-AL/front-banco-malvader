@@ -1,0 +1,17 @@
+<app-header></app-header>
+
+<div class="container-contas">
+    <!-- <h1> Suas contas</h1> -->
+
+    <!-- Conta corrente -->
+    <app-card-conta *ngFor="let item of contasCorrente" [dadosRecebidos]="item" [tipoConta]="'Corrente'">
+    </app-card-conta>
+    
+    <!-- Conta corrente -->
+    <app-card-conta *ngFor="let item of contasPoupanca" [dadosRecebidos]="item" [tipoConta]="'Poupanca'">
+    </app-card-conta>
+
+    <!-- Conta investimento -->
+    <app-card-conta *ngFor="let item of contasInvestimento" [dadosRecebidos]="item" [tipoConta]="'Investimento'">
+    </app-card-conta>
+</div>

@@ -1,0 +1,146 @@
+// ... (todos os estilos anteriores de :host, app-header, containers, botões, etc.)
+
+app-header {
+    width: 100%;
+}
+
+:host {
+    padding-top: 100px;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animacao-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+// Estilo para o campo de input quando um destinatário é encontrado
+input[readOnly] {
+  background-color: #3a404c !important;
+  color: #888c9a;
+}
+
+// Estilo para o feedback (Buscando... / Erro)
+.container-feedback {
+  text-align: center;
+  padding: 0.8rem;
+  border-radius: 8px;
+  margin-top: -1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  background-color: #3a404c;
+  color: #c0c2c7;
+
+  &.erro {
+    background-color: rgba(255, 107, 107, 0.1);
+    color: #ff6b6b;
+  }
+}
+
+// Container que mostra os dados do CPF encontrado
+.container-resultado-cpf {
+  background-color: #22262d;
+  border: 1px solid #1affdf;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  position: relative;
+}
+
+.resultado-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #888c9a;
+  margin-bottom: 0.5rem;
+}
+
+.resultado-nome {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.resultado-cpf {
+  font-size: 1rem;
+  color: #c0c2c7;
+  margin-top: 0.25rem;
+}
+
+.link-alterar {
+  font-size: 0.9rem;
+  color: #1affdf;
+  cursor: pointer;
+  margin-top: 1rem;
+  display: inline-block;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.container-botoes {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap; /* permite quebra em telas pequenas */
+}
+
+.botao-secundario {
+  background-color: #3a404c;
+  box-shadow: none;
+  color: #eee;
+}
+
+.botao-principal {
+  background-color: rgb(68, 139, 68);
+  box-shadow: none;
+}
+
+/* RESPONSIVIDADE PARA MOBILE */
+@media (max-width: 768px) {
+  :host {
+    padding-top: 60px;
+  }
+
+  .animacao-fade-in {
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .container-botoes {
+    flex-direction: column-reverse;
+    gap: 12px;
+  }
+
+  .container-resultado-cpf {
+    padding: 1rem;
+  }
+
+  .resultado-nome {
+    font-size: 1.2rem;
+  }
+
+  .resultado-cpf {
+    font-size: 0.95rem;
+  }
+
+  .link-alterar {
+    font-size: 0.85rem;
+    text-align: center;
+  }
+}

@@ -1,0 +1,63 @@
+<form [formGroup]="forms">
+
+  <input 
+    class="estilo-input-padrao"
+    type="text" 
+    placeholder="Digite seu nome"
+    formControlName="nome"
+  />
+
+  <input 
+  class="estilo-input-padrao"
+    type="text" 
+    placeholder="Digite seu CPF"
+    formControlName="cpf"
+  />
+
+  <input 
+  class="estilo-input-padrao"
+    type="text" 
+    placeholder="Digite seu email"
+    formControlName="email"
+  />
+
+  <input 
+    class="estilo-input-padrao"
+    type="date" 
+    formControlName="data_nascimento"
+  />
+
+  <input 
+    class="estilo-input-padrao"
+    type="text" 
+    placeholder="Digite seu telefone"
+    formControlName="telefone"
+  />
+
+  <select 
+    formControlName="tipo_usuario"
+    class="estilo-input-padrao"
+    >
+    <option value="">Selecione um tipo</option>
+    <option value="administrador">Administrador</option>
+    <option value="comum">Comum</option>
+  </select>
+
+  <input 
+    class="estilo-input-padrao"
+    type="password" 
+    placeholder="Digite sua senha"
+    formControlName="senha_hash"
+  />
+
+  <select 
+    formControlName="otp_ativo"
+    class="estilo-input-padrao"
+    >
+    <option [ngValue]="true">Ativado</option>
+    <option [ngValue]="false">Desativado</option>
+  </select>
+
+  <button (click)="confirmarEnvio()">CRIAR CONTA</button>
+
+</form>

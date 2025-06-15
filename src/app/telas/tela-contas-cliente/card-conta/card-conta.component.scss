@@ -1,0 +1,20 @@
+.container-conta {
+    height: 150px;
+    width: 300px;
+    background-color: var(--cor-primaria);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+
+    border: 1px solid;
+    border-color: #00e0c6;
+    /* Cor de destaque neon */
+    box-shadow: 0 0 0 3px rgba(0, 224, 198, 0.2),
+        0 0 20px rgba(0, 224, 198, 0.1);
+
+    p {
+        font-size: 20px;
+        font-family: 'Inter';
+    }
+}

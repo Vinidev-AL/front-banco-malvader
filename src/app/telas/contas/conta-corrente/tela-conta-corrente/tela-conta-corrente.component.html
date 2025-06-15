@@ -1,0 +1,22 @@
+<app-header></app-header>
+<h1>Conta Corrente</h1>
+<div>Agencia: {{informacoesContaCorrente.codigo_agencia}} - Conta: {{informacoesContaCorrente.numero_conta}}</div>
+<div class="container-conta-corrente">
+    <div class="container-saldo">
+        <p>{{informacoesContaCorrente.saldo  | currency: 'BRL': 'symbol':'1.2-2'}}</p>
+    </div>
+    <div class="container-informacoes">
+        <div
+        (click)="irParaTransferencia()"
+        >
+            Tranferência
+        </div>
+        <div>Deposito</div>
+        <div>Saque</div>
+
+    </div>
+
+    <div class="container-limite">
+        <div>Seu limite é de {{informacoesContaCorrente.limite | currency: 'BRL': 'symbol':'1.2-2'}} </div>
+    </div>
+</div>

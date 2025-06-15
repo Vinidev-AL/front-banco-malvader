@@ -1,0 +1,23 @@
+:host {
+    background-color: #1a1c20;
+    top: 0px;
+    position: fixed;
+    z-index: 99999;
+}
+
+header {
+    height: 100px;
+    width: 100%;
+    box-shadow: 0px 0px 10px rgb(22, 44, 39);
+}
+
+#header-container-nome {
+    width: 300px;
+    height: 100%;
+    // background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+}

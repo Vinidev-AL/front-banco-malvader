@@ -1,0 +1,156 @@
+:host {
+    padding-top: 100px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+app-header {
+    display: block;
+    width: 100%;
+    padding-bottom: 2.5rem;
+    text-align: center;
+    color: #e0e0e0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.info-agencia-conta {
+    margin-bottom: 2.5rem;
+    text-align: center;
+    font-size: 1.15rem;
+    color: #888c9a;
+}
+
+.container-conta-corrente {
+    background-color: #2c3038;
+    padding: 3rem;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 550px;
+    margin: 2rem;
+    border: 1px solid #444955;
+    box-shadow: 0 15px 40px -8px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 2.2rem;
+}
+
+.container-saldo {
+    text-align: center;
+    padding: 1.8rem;
+    background-color: #22262d;
+    border-radius: 12px;
+    border: 1px solid #3a404c;
+    box-shadow: inset 0 0 15px rgba(0, 224, 198, 0.03),
+                0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.container-saldo p {
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.05em;
+}
+
+.container-informacoes {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+}
+
+.container-informacoes > div {
+    background-color: #22262d;
+    color: #fff;
+    padding: 1.1rem 1.8rem;
+    border-radius: 10px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid #3a404c;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    flex-grow: 1;
+    text-align: center;
+    min-width: 120px;
+}
+
+.container-informacoes > div:hover {
+    background-color: #2e343e;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(0, 208, 187, 0.2);
+    color: #1affdf;
+    border-color: #fff;
+}
+
+.container-informacoes > div:active {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.container-limite {
+    text-align: center;
+    padding: 1.2rem;
+    background-color: #22262d;
+    border-radius: 12px;
+    border: 1px solid #3a404c;
+    color: #888c9a;
+    font-size: 1.05rem;
+}
+
+.container-limite div {
+    color: #e0e0e0;
+    font-weight: 500;
+}
+
+/* RESPONSIVIDADE PARA MOBILE */
+@media (max-width: 768px) {
+    :host {
+        padding-top: 60px;
+    }
+
+    app-header {
+        font-size: 1.1rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .info-agencia-conta {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+        padding: 0 1rem;
+    }
+
+    .container-conta-corrente {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+        gap: 1.5rem;
+    }
+
+    .container-saldo p {
+        font-size: 2.4rem;
+    }
+
+    .container-informacoes {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.8rem;
+    }
+
+    .container-informacoes > div {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+
+    .container-limite {
+        font-size: 0.95rem;
+        padding: 1rem;
+    }
+}

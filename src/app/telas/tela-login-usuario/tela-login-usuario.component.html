@@ -1,0 +1,25 @@
+<form [formGroup]="forms">
+  <input 
+  class="estilo-input-padrao"
+    type="text" 
+    placeholder="Digite seu CPF"
+    formControlName="cpf"
+  />
+
+  <input 
+    class="estilo-input-padrao"
+    type="password" 
+    placeholder="Digite sua senha"
+    formControlName="senha"
+  />
+
+  <select 
+    formControlName="tipo"
+    class="estilo-input-padrao"
+    >
+    <option value="cliente">Cliente</option>
+    <option value="funcionario">Funcionario</option>
+  </select>
+  
+  <button (click)="confirmarEnvio()">ENTRAR</button>
+</form>

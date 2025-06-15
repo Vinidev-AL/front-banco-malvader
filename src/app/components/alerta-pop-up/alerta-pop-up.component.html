@@ -1,0 +1,15 @@
+<div class="aplicar-blur" [ngClass]="{'aplica-no-select' : visivel}">
+    <div class="container-alerta-pop-up" [ngClass]="tipoAlerta" *ngIf="visivel">
+      <div class="container-pai-alerta">
+        <div class="container-msg-superior">
+          <p>{{tipoAlerta || 'Opa...'}}</p>
+        </div>
+        <div class="container-msg-inferior">
+          <p>{{mensagemAlerta}}</p>
+        </div>
+      </div>
+      <div class="container-botao" *ngIf="!(tipoAlerta === 'sucesso')">
+        <button (click)="fecharAlerta()">OK, ENTENDI</button>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<form [formGroup]="forms">
+    <h1>Digite o código OTP de confirmação</h1>
+  <input 
+  class="estilo-input-padrao"
+    type="text" 
+    placeholder="Código OTP"
+    formControlName="otp_codigo"
+  />
+  
+  <button (click)="confirmarEnvio()">VERIFICAR</button>
+</form>

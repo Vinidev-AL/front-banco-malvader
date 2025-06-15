@@ -1,0 +1,109 @@
+// /* ALERTA BASE */
+
+
+.container-alerta-pop-up {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  width: 90%;
+  max-width: 400px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+  border-left: 6px solid #ffe600; /* default: alerta */
+}
+
+/* CONTEÚDO */
+.container-pai-alerta {
+  padding: 20px;
+  text-align: left;
+}
+
+.container-msg-superior p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0 0 10px;
+}
+
+.container-msg-inferior p {
+  font-size: 0.95rem;
+  margin: 0 0 20px;
+  color: #555;
+}
+
+.container-botao {
+  padding: 15px;
+  text-align: center;
+}
+
+.container-botao button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+}
+
+/* === ESTILOS DINÂMICOS POR TIPO === */
+
+/* ALERTA padrão */
+.alerta {
+  border-left-color: #ffe600;
+}
+.alerta .container-msg-superior p {
+  color: #333;
+}
+.alerta .container-botao {
+  background-color: #ffe600;
+}
+.alerta .container-botao button {
+  color: #003087;
+}
+
+/* SUCESSO */
+.sucesso {
+  border-left-color: #28a745;
+}
+.sucesso .container-msg-superior p {
+  color: #28a745;
+}
+.sucesso .container-botao {
+  background-color: #28a745;
+}
+.sucesso .container-botao button {
+  color: #fff;
+}
+
+/* ERRO */
+.erro {
+  border-left-color: #dc3545;
+}
+.erro .container-msg-superior p {
+  color: #dc3545;
+}
+.erro .container-botao {
+  background-color: #dc3545;
+}
+.erro .container-botao button {
+  color: #fff;
+}
+
+
+.aplica-no-select {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    background-color: rgb(0 0 0 / 73%);;
+    z-index: 9999;
+}
+
+// .aplicar-blur {
+//   width: 100vw;
+//   height: 100vh;
+// }
