@@ -1,0 +1,35 @@
+<div class="modal-backdrop" (mousedown)="onBackdropClick($event)">
+  <div class="modal-content">
+    <header class="modal-header">
+      <h2>{{ titulo }}</h2>
+      <button class="close-button" (click)="fechar.emit()" [disabled]="isLoading">&times;</button>
+    </header>
+
+    <div class="modal-body">
+      <form [formGroup]="transacaoForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="valor">Valor da Transação</label>
+          <div class="input-wrapper">
+            <span>R$</span>
+            <input
+              id="valor"
+              type="number"
+              placeholder="0,00"
+              formControlName="valor"
+              [class.input-error]="transacaoForm.get('valor')?.invalid && transacaoForm.get('valor')?.touched"
+            >
+          </div>
+          <div *ngIf="transacaoForm.get('valor')?.invalid && transacaoForm.get('valor')?.touched" class="error-message">
+            <small *ngIf="transacaoForm.get('valor')?.errors?.['required']">O valor é obrigatório.</small>
+            <small *ngIf="transacaoForm.get('valor')?.errors?.['min']">O valor deve ser positivo.</small>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-button" [disabled]="transacaoForm.invalid || isLoading">
+          <span *ngIf="!isLoading">{{ textoBotao }}</span>
+          <span *ngIf="isLoading" class="spinner"></span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

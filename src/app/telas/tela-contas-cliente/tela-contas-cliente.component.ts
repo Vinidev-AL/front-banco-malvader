@@ -57,14 +57,14 @@ export class TelaContasClienteComponent implements OnInit, AfterViewInit {
     // Carregar conta poupança
     this.chamadaService.chamadaGet(`/conta-poupanca/${informacoesUsuario.cpf}`).subscribe(res => {
       console.log("Esse é o resultado da conta poupança: ", res)
-      if(res.length > 0){
+      if(!!res){
         this.contasPoupanca.push(res);
       }
     })
 
     // Carregar conta investimento
     this.chamadaService.chamadaGet(`/conta-investimento/${informacoesUsuario.cpf}`).subscribe(res => {
-      if(res.length > 0){
+      if(!!res){
         this.contasInvestimento.push(res);
       }
     })
