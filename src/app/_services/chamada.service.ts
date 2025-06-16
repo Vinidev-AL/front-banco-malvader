@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ChamadaService {
 
-  baseURlApi = 'http://localhost:3000'
+  baseURlApi = 'http://localhost:3001'
 
   constructor(
     private http: HttpClient,
@@ -30,6 +30,30 @@ export class ChamadaService {
     const url = `${this.baseURlApi}${endpoint}`;
 
     return this.http.post(url, objetoDeEnvio).pipe(
+      tap((data: any) => {
+        if (data.erro) {
+          console.log("Esse é o data: ", data)
+          this.mensagemService.mensagemErro(`${data.mensagem}`);
+        }
+        this.loaderService.setLoader(false);
+      }),
+      catchError((error) => {
+        this.loaderService.setLoader(false);
+
+        const mensagem = error?.error?.mensagem || 'Erro na requisição';
+        this.mensagemService.mensagemErro(mensagem);
+
+        return throwError(() => error);
+      })
+
+    );
+  }
+
+    chamadaPatch(endpoint: string, objetoDeEnvio: any): Observable<any> {
+    this.loaderService.setLoader(true);
+    const url = `${this.baseURlApi}${endpoint}`;
+
+    return this.http.patch(url, objetoDeEnvio).pipe(
       tap((data: any) => {
         if (data.erro) {
           console.log("Esse é o data: ", data)
