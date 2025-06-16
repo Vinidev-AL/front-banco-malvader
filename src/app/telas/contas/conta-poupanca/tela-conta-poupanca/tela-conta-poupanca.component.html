@@ -1,0 +1,16 @@
+<app-header></app-header>
+<h1>Conta Poupança</h1>
+<div>Agencia: {{informacoesContaPoupanca.codigo_agencia}} - Conta: {{informacoesContaPoupanca.numero_conta}}</div>
+<div class="container-conta-poupanca">
+    <div class="container-saldo">
+        <p>{{informacoesContaPoupanca.saldo  | currency: 'BRL': 'symbol':'1.2-2'}}</p>
+    </div>
+    <div class="container-informacoes">
+        <div (click)="irParaTransferencia()">Tranferência</div>
+        <div>Deposito</div>
+        <div>Saque</div>
+    </div>
+    <div class="container-rendimento">
+        <div>Rendimento mensal: {{informacoesContaPoupanca.rendimento_mensal | percent:'1.2-2'}}</div>
+    </div>
+</div>
