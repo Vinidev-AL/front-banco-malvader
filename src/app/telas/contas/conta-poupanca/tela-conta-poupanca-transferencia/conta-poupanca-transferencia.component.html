@@ -1,0 +1,68 @@
+<app-header>Realizar Transferência</app-header>
+<div class="info-agencia-conta">Para quem você deseja transferir?</div>
+
+<div class="container-transferencia">
+  <form [formGroup]="forms" (ngSubmit)="realizarTransferencia()">
+
+    <div class="campo-form">
+      <label for="cpf-destino">Digite o CPF do destinatário</label>
+      <input
+        id="cpf-destino"
+        class="estilo-input-padrao"
+        type="text"
+        placeholder="Apenas números"
+        formControlName="cpf_destino"
+        maxlength="11"
+        [readOnly]="destinatarioEncontrado"
+        required
+      />
+    </div>
+
+    <div *ngIf="buscandoCpf" class="container-feedback">Buscando...</div>
+    <div *ngIf="erroCpf" class="container-feedback erro">{{ erroCpf }}</div>
+
+    <div *ngIf="destinatarioEncontrado" class="animacao-fade-in">
+
+      <div class="container-resultado-cpf">
+        <div class="resultado-label">Destinatário</div>
+        <div class="resultado-nome">{{ destinatarioEncontrado.nome }}</div>
+        <div class="resultado-cpf">CPF: {{ destinatarioEncontrado.cpf | slice:0:3 }}.***.***-**</div>
+        <a (click)="limparBusca()" class="link-alterar">Buscar outro CPF</a>
+      </div>
+
+      <div class="campo-form">
+        <label for="valor">Agora, digite o valor da transferência</label>
+        <input
+          id="valor"
+          class="estilo-input-padrao"
+          type="number"
+          placeholder="R$ 0,00"
+          formControlName="valor"
+          required
+        />
+      </div>
+
+      <div class="campo-form">
+        <label for="descricao">Descrição (Opcional)</label>
+        <input
+          id="descricao"
+          class="estilo-input-padrao"
+          type="text"
+          placeholder="Ex: Pagamento aluguel"
+          formControlName="descricao"
+        />
+      </div>
+    </div>
+
+    <div class="container-botoes">
+        <button type="button" class="botao-secundario" (click)="voltar()">VOLTAR</button>
+        <button
+            *ngIf="!this.forms.invalid && destinatarioEncontrado"
+            type="submit"
+            class="botao-principal"
+            [disabled]="forms.invalid || !destinatarioEncontrado">
+            TRANSFERIR
+        </button>
+    </div>
+  </form>
+</div>
