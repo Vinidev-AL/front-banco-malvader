@@ -7,6 +7,7 @@
 
     <div class="modal-body">
       <form [formGroup]="transacaoForm" (ngSubmit)="onSubmit()">
+
         <div class="form-group">
           <label for="valor">Valor da Transação</label>
           <div class="input-wrapper">
@@ -25,7 +26,38 @@
           </div>
         </div>
 
-        <button type="submit" class="submit-button" [disabled]="transacaoForm.invalid || isLoading">
+        <ng-container *ngIf="tipo === TipoTransacao.solicitarEmprestimo">
+          <div class="form-group">
+            <label for="prazo">Prazo (meses)</label>
+            <div class="input-wrapper">
+              <input
+                id="prazo"
+                type="number"
+                formControlName="prazo"
+                readonly
+              >
+              <span>meses</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="taxa">Taxa de Juros Mensal</label>
+            <div class="input-wrapper">
+              <input
+                id="taxa"
+                type="text"
+                formControlName="taxa"
+                readonly
+              >
+            </div>
+          </div>
+        </ng-container>
+
+        <button
+          type="submit"
+          class="submit-button"
+          [disabled]="isLoading || (tipo !== TipoTransacao.solicitarEmprestimo && transacaoForm.invalid) || (tipo === TipoTransacao.solicitarEmprestimo && (valorTransacao === null || prazoMeses === null || taxaJurosMensal === null))"
+        >
           <span *ngIf="!isLoading">{{ textoBotao }}</span>
           <span *ngIf="isLoading" class="spinner"></span>
         </button>

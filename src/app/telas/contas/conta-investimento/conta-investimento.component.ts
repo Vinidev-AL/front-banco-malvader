@@ -62,7 +62,7 @@ export class ContaInvestimentoComponent {
   ngAfterViewInit(): void {}
 
   isModalAberto = false;
-  tipoTransacao: TipoTransacao = TipoTransacao.deposito; // Tipo padrão para investimento
+  tipoTransacao: TipoTransacao = TipoTransacao.deposito; 
 
   sacar(): void {
     this.isModalAberto = true;
