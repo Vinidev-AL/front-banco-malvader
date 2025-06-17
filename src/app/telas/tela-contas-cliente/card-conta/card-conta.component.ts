@@ -40,6 +40,7 @@ clicouNaConta() {
      this.router.navigate(['/conta-poupanca'])
   } else if(this.tipoConta.toLocaleLowerCase() == 'investimento'){
     this.dadosCompartilhados.definirDados({id_conta_investimento: this.dadosRecebidos.id_conta_investimento})
+     this.router.navigate(['/conta-investimento'])
   }
 }
 

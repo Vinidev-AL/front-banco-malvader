@@ -1,0 +1,29 @@
+<app-transacao-modal
+  *ngIf="isModalAberto"
+  [tipo]="tipoTransacao"
+  [tipoConta]="tipoContaEnum.investimento"
+  [idConta]="idDaContaInvestimento"
+  (fechar)="fecharModal()"
+  (transacaoConcluida)="fecharModal()"
+></app-transacao-modal>
+
+<app-header></app-header>
+<h1>Conta Investimento</h1>
+
+<div class="info-agencia-conta">
+  Agencia: {{informacoesContaInvestimento.codigo_agencia ? informacoesContaInvestimento.codigo_agencia : ''}} - Conta: {{informacoesContaInvestimento.numero_conta}}
+</div>
+
+<div class="container-conta-investimento">
+  <div class="container-saldo">
+    <p>{{informacoesContaInvestimento.saldo | currency: 'BRL': 'symbol':'1.2-2'}}</p>
+  </div>
+  <div class="container-informacoes">
+    <div (click)="depositar()">Aplicar</div>
+    <div (click)="sacar()">Resgatar</div>
+  </div>
+  <div class="container-rentabilidade">
+    Rentabilidade: {{informacoesContaInvestimento.taxa_rendimento_base | percent:'1.2-2'}}
+  </div>
+
+</div>
