@@ -1,3 +1,11 @@
+<app-transacao-modal
+  *ngIf="isModalAberto"
+  [tipo]="tipoTransacao"
+  [tipoConta]="tipoContaEnum.corrente" [idConta]="idDaContaCorrente"
+  (fechar)="fecharModal()"
+  (transacaoConcluida)="fecharModal()"
+></app-transacao-modal>
+
 <app-header></app-header>
 <h1>Conta Corrente</h1>
 <div>Agencia: {{informacoesContaCorrente.codigo_agencia}} - Conta: {{informacoesContaCorrente.numero_conta}}</div>
@@ -11,8 +19,8 @@
         >
             Tranferência
         </div>
-        <div>Deposito</div>
-        <div>Saque</div>
+        <div (click)="depositar()">Deposito</div>
+        <div (click)="sacar()">Saque</div>
 
     </div>
 
