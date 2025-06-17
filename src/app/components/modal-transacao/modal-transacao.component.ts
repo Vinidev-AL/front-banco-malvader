@@ -6,36 +6,44 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ChamadaService } from '../../_services/chamada.service'; // Ajuste o caminho conforme necessário
 import { MensagemService } from '../../_services/mensagem.service';
 
-// ENUM para o tipo de operação (Saque ou Depósito)
+
 export enum TipoTransacao {
   deposito = 'deposito',
-  saque = 'saque'
+  saque = 'saque',
+  solicitarEmprestimo = 'solicitar'
 }
 
-// NOVO ENUM para o tipo de conta
+
 export enum TipoConta {
   poupanca = 'conta-poupanca',
   corrente = 'conta-corrente',
-  investimento = 'conta-investimento'
+  investimento = 'conta-investimento',
+  emprestimo = 'emprestimo' 
 }
 
 @Component({
   selector: 'app-transacao-modal',
-  standalone: true, // Marcado como standalone para gerenciar as próprias dependências
+  standalone: true,
   imports: [
-    CommonModule,         // Para diretivas como *ngIf
-    ReactiveFormsModule   // Para trabalhar com formulários reativos
+    CommonModule,
+    ReactiveFormsModule
   ],
   templateUrl: './modal-transacao.component.html',
   styleUrls: ['./modal-transacao.component.scss']
 })
 export class TransacaoModalComponent implements OnInit {
-  // ENTRADAS: Dados que o componente recebe do pai
-  @Input() tipo!: TipoTransacao;
-  @Input() tipoConta!: TipoConta; // NOVO: Define qual a rota base da API
-  @Input() idConta!: string;      // ID da conta específica (poupança, corrente, etc.)
+ 
+  public TipoTransacao = TipoTransacao; 
 
-  // SAÍDAS: Eventos que o componente emite para o pai
+ 
+  @Input() tipo!: TipoTransacao;
+  @Input() tipoConta!: TipoConta;
+  @Input() idConta!: string;
+  @Input() valorTransacao: number | null = null; 
+  @Input() prazoMeses: number | null = null;
+  @Input() taxaJurosMensal: number | null = null; 
+
+
   @Output() fechar = new EventEmitter<void>();
   @Output() transacaoConcluida = new EventEmitter<void>();
 
@@ -44,13 +52,10 @@ export class TransacaoModalComponent implements OnInit {
   titulo = '';
   textoBotao = '';
 
-
   constructor(
     private fb: FormBuilder,
     private chamadaService: ChamadaService,
-    private msgService: MensagemService // Ajuste o serviço de mensagens conforme necessário
-
-
+    private msgService: MensagemService
   ) { }
 
   ngOnInit(): void {
@@ -59,39 +64,88 @@ export class TransacaoModalComponent implements OnInit {
   }
 
   private configurarComponente(): void {
-    const isDeposito = this.tipo === TipoTransacao.deposito;
-    this.titulo = isDeposito ? 'Realizar Depósito' : 'Realizar Saque';
-    this.textoBotao = isDeposito ? 'Depositar' : 'Sacar';
+    switch (this.tipo) {
+      case TipoTransacao.deposito:
+        this.titulo = 'Realizar Depósito';
+        this.textoBotao = 'Depositar';
+        break;
+      case TipoTransacao.saque:
+        this.titulo = 'Realizar Saque';
+        this.textoBotao = 'Sacar';
+        break;
+      case TipoTransacao.solicitarEmprestimo:
+        this.titulo = 'Confirmação de Empréstimo';
+        this.textoBotao = 'Confirmar Solicitação';
+        break;
+      default:
+        this.titulo = 'Transação';
+        this.textoBotao = 'Confirmar';
+    }
   }
 
   private inicializarFormulario(): void {
+    const valorInicial = this.tipo === TipoTransacao.solicitarEmprestimo ? this.valorTransacao : null;
+
     this.transacaoForm = this.fb.group({
-      valor: [null, [Validators.required, Validators.min(0.01)]]
+      valor: [{ value: valorInicial, disabled: this.tipo === TipoTransacao.solicitarEmprestimo }, [Validators.required, Validators.min(0.01)]]
     });
+
+
+    if (this.tipo === TipoTransacao.solicitarEmprestimo) {
+      this.transacaoForm.addControl('prazo', this.fb.control({ value: this.prazoMeses, disabled: true }));
+      this.transacaoForm.addControl('taxa', this.fb.control({ value: this.taxaJurosMensal, disabled: true }));
+    }
   }
 
   onSubmit(): void {
-    if (this.transacaoForm.invalid) {
+   
+    if (this.tipo !== TipoTransacao.solicitarEmprestimo && this.transacaoForm.invalid) {
       this.transacaoForm.markAllAsTouched();
       return;
     }
 
+
+    if (this.tipo === TipoTransacao.solicitarEmprestimo && (this.valorTransacao === null || this.prazoMeses === null || this.taxaJurosMensal === null || !this.idConta)) {
+      console.error('Dados de empréstimo incompletos para submissão do modal.');
+      this.msgService.mensagemErro('Dados incompletos para solicitar o empréstimo.', 3000);
+      this.isLoading = false;
+      return;
+    }
+
     this.isLoading = true;
-    const { valor } = this.transacaoForm.value;
+    const valor = this.tipo === TipoTransacao.solicitarEmprestimo ? this.valorTransacao : this.transacaoForm.get('valor')?.value;
 
-    // Constrói a URL dinamicamente com base no tipo de conta e tipo de transação
-    const url = `/${this.tipoConta}/${this.idConta}/${this.tipo}`;
-    const body = { valor };
+    let url: string;
+    let body: any;
+    let method: 'patch' | 'post'; 
 
+    if (this.tipo === TipoTransacao.solicitarEmprestimo) {
+      url = '/emprestimo'; 
+      body = {
+        id_conta: this.idConta,
+        valor_solicitado: valor,
+        prazo_meses: this.prazoMeses,
+        taxa_juros_mensal: this.taxaJurosMensal
+      };
+      method = 'post';
+    } else {
   
-    this.chamadaService.chamadaPatch(url, body).subscribe({
+      url = `/${this.tipoConta}/${this.idConta}/${this.tipo}`;
+      body = { valor };
+      method = 'patch';
+    }
+
+    const request = method === 'post' ? this.chamadaService.chamadaPost(url, body) : this.chamadaService.chamadaPatch(url, body);
+
+    request.subscribe({
       next: (resposta: any) => {
-        this.msgService.mensagemSucesso(resposta?.mensagem || 'Transação realizada com sucesso!', 2000);
-        console.log(resposta?.mensagem || 'Transação realizada com sucesso!');
+        this.msgService.mensagemSucesso(resposta?.mensagem || (this.tipo === TipoTransacao.solicitarEmprestimo ? 'Empréstimo solicitado com sucesso!' : 'Transação realizada com sucesso!'), 2000);
+        console.log(resposta?.mensagem || (this.tipo === TipoTransacao.solicitarEmprestimo ? 'Empréstimo solicitado com sucesso!' : 'Transação realizada com sucesso!'));
         this.transacaoConcluida.emit();
       },
       error: (err: any) => {
         console.error(err.error?.mensagem || 'Falha na operação. Tente novamente.');
+        this.msgService.mensagemErro(err.error?.mensagem || 'Falha na operação. Tente novamente.', 3000);
         this.isLoading = false;
       },
       complete: () => {

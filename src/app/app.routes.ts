@@ -7,6 +7,7 @@ import { TelaContaCorrenteComponent } from './telas/contas/conta-corrente/tela-c
 import { ContaCorrenteTransferenciaComponent } from './telas/contas/conta-corrente/tela-conta-corrente-transferencia/conta-corrente-transferencia.component';
 import { TelaContaPoupancaComponent } from './telas/contas/conta-poupanca/tela-conta-poupanca/tela-conta-poupanca.component';
 import { ContaInvestimentoComponent } from './telas/contas/conta-investimento/conta-investimento.component';
+import { TelaSolicitarEmprestimoComponent } from './telas/solicitar-emprestimo/solicitar-emprestimo.component';
 
 export const routes: Routes = [
     { path: 'home-cliente', component: TelaContasClienteComponent},
@@ -14,6 +15,7 @@ export const routes: Routes = [
         { path: 'conta-corrente/tranferencia', component: ContaCorrenteTransferenciaComponent},
     { path: 'conta-poupanca', component: TelaContaPoupancaComponent},
     { path: 'conta-investimento', component: ContaInvestimentoComponent},
+    { path: 'solicitar-emprestimo', component: TelaSolicitarEmprestimoComponent},
     { path: 'cadastro-usuario', component: TelaCadastroUsuarioComponent},
     { path: 'login', component: TelaLoginUsuarioComponent},
     { path: 'validar-otp', component: TelaValidarOtpComponent}

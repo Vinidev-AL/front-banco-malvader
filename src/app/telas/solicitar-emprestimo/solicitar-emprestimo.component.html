@@ -1,0 +1,49 @@
+
+<app-header></app-header>
+<h1>Solicitar Empréstimo</h1>
+
+<div class="container-solicitar-emprestimo">
+  <form (ngSubmit)="solicitarEmprestimo()" #emprestimoForm="ngForm">
+    <div class="form-group">
+      <label for="valorSolicitado">Valor Desejado (BRL):</label>
+      <input
+        type="number"
+        id="valorSolicitado"
+        name="valorSolicitado"
+        [(ngModel)]="valorSolicitado"
+        required
+        min="100"
+        #valorInput="ngModel"
+      />
+      <div *ngIf="valorInput.invalid && (valorInput.dirty || valorInput.touched)" class="error-message">
+        <div *ngIf="valorInput.errors?.['required']">O valor é obrigatório.</div>
+        <div *ngIf="valorInput.errors?.['min']">O valor mínimo é R$ 100.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="prazoMeses">Prazo (meses):</label>
+      <input
+        type="number"
+        id="prazoMeses"
+        name="prazoMeses"
+        [(ngModel)]="prazoMeses"
+        required
+        min="6"
+        max="60"
+        #prazoInput="ngModel"
+      />
+      <div *ngIf="prazoInput.invalid && (prazoInput.dirty || prazoInput.touched)" class="error-message">
+        <div *ngIf="prazoInput.errors?.['required']">O prazo é obrigatório.</div>
+        <div *ngIf="prazoInput.errors?.['min']">O prazo mínimo é 6 meses.</div>
+        <div *ngIf="prazoInput.errors?.['max']">O prazo máximo é 60 meses.</div>
+      </div>
+    </div>
+
+    <div class="info-juros">
+      Taxa de Juros Mensal: {{ taxaJurosMensal | percent:'1.2-2' }}
+    </div>
+
+    <button type="submit" [disabled]="emprestimoForm.invalid">Solicitar Empréstimo</button>
+  </form>
+</div>
